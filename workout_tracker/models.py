@@ -1,8 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
 
 # The MuscleGroup model represents a group of muscles targeted by an exercise
 class MuscleGroup(models.Model):
@@ -21,14 +20,23 @@ class Exercise(models.Model):
 
 # The DailyLog model represents a user's daily log entry, including date, weight, sleep, and mood
 class DailyLog(models.Model):
+    MOOD_CHOICES = [
+        (1, 'Very Poor'),
+        (2, 'Poor'),
+        (3, 'Fair'),
+        (4, 'Good'),
+        (5, 'Very Good'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     weight = models.FloatField()
     sleep_hours = models.IntegerField()
-    mood = models.IntegerField()
+    mood = models.IntegerField(choices=MOOD_CHOICES)
 
     def __str__(self):
         return f"{self.user.username} - {self.date}"
+
 
 # The ExerciseLog model represents the details of an exercise performed on a specific day,
 # including the daily log it belongs to, the exercise, sets, reps, and weight used

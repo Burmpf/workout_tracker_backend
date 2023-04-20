@@ -48,4 +48,4 @@ class ExerciseLog(models.Model):
     weight = models.FloatField()
 
     def __str__(self):
-        return f"{self.daily_log} - {self.exercise.exercise_name}"
+        return f"{self.daily_log} - {self.exercise.exercise_name} - Sets: {self.sets}, Reps: {self.reps}, Weight: {self.weight}"
